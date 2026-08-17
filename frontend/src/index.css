@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-sand text-ink font-sans antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+    font-variation-settings: 'opsz' 100;
+  }
+
+  ::selection {
+    @apply bg-mango text-ink;
+  }
+
+  :focus-visible {
+    outline: 3px solid #1F7A45;
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-[1200px] px-5 sm:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold
+           transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-primary {
+    @apply btn bg-leaf text-white shadow-card hover:bg-leaf-dark hover:-translate-y-0.5;
+  }
+
+  .btn-accent {
+    @apply btn bg-mango text-ink shadow-card hover:bg-mango-dark hover:-translate-y-0.5;
+  }
+
+  .btn-ghost {
+    @apply btn border border-ink/15 bg-white/70 text-ink hover:border-leaf hover:text-leaf;
+  }
+
+  .card {
+    @apply rounded-3xl border border-ink/8 bg-white shadow-card;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-leaf;
+  }
+
+  .field {
+    @apply w-full rounded-2xl border border-ink/15 bg-white px-4 py-3 text-sm text-ink
+           placeholder:text-ink/35 transition focus:border-leaf focus:outline-none focus:ring-4 focus:ring-leaf/12;
+  }
+
+  .label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wider text-ink/60;
+  }
+
+  /* Signature: the perforated "travel ticket" edge used on key panels */
+  .ticket-edge {
+    -webkit-mask-image: radial-gradient(circle 9px at 0 50%, transparent 98%, #000 100%),
+                        radial-gradient(circle 9px at 100% 50%, transparent 98%, #000 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: radial-gradient(circle 9px at 0 50%, transparent 98%, #000 100%),
+                radial-gradient(circle 9px at 100% 50%, transparent 98%, #000 100%);
+    mask-composite: intersect;
+  }
+
+  .stamp-ring {
+    background: repeating-conic-gradient(from 0deg, #0F2A1D 0deg 6deg, transparent 6deg 12deg);
+  }
+}
+
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
