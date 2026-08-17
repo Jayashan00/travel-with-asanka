@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, ChevronDown } from 'lucide-react'
-import { mediaUrl } from '../lib/api'
 import { useSite } from '../lib/SiteContext'
 import Stars from './Stars'
 
-const FALLBACK = [
+// Hardcoded local images so the backend can no longer override and break them
+const SLIDES = [
   {
     image: '/images/hero/hero-sigiriya.jpg',
     title: 'Feel the nature',
@@ -14,11 +14,35 @@ const FALLBACK = [
     ctaLabel: 'Plan my trip',
     ctaLink: '/contact',
   },
+  {
+    image: '/images/hero/hero-tea-country.jpg',
+    title: 'Into the misty hills',
+    subtitle: 'Experience the breathtaking tea estates and cool climate of Sri Lanka.',
+    ctaLabel: 'Plan my trip',
+    ctaLink: '/contact',
+  },
+  {
+    image: '/images/hero/hero-south-coast.jpg',
+    title: 'Chase the south coast',
+    subtitle: 'Mirissa, Weligama and every quiet bay in between.',
+    ctaLabel: 'Read our guides',
+    ctaLink: '/blog',
+  },
+  {
+    image: '/images/hero/hero-safari.jpg',
+    title: 'Meet the wild ones',
+    subtitle: 'Kaudulla, Minneriya and Wilpattu with a driver who knows the timing.',
+    ctaLabel: 'Book a safari day',
+    ctaLink: '/contact',
+  },
 ]
 
 export default function Hero() {
   const { settings } = useSite()
-  const slides = settings?.heroSlides?.length ? settings.heroSlides : FALLBACK
+
+  // Force the component to ONLY use our local SLIDES array
+  const slides = SLIDES
+
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
@@ -33,7 +57,7 @@ export default function Hero() {
     <section className="relative h-[92vh] min-h-[560px] w-full overflow-hidden">
       <AnimatePresence mode="sync">
         <motion.div
-          key={index}
+          key={slide.image} // Keyed to the image path to prevent layout shifts
           className="absolute inset-0"
           initial={{ opacity: 0, scale: 1.12 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -41,7 +65,7 @@ export default function Hero() {
           transition={{ opacity: { duration: 1.1 }, scale: { duration: 7.5, ease: 'linear' } }}
         >
           <img
-            src={mediaUrl(slide.image)}
+            src={slide.image}
             alt=""
             className="h-full w-full object-cover"
             loading="eager"

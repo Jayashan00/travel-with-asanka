@@ -76,7 +76,8 @@ export default function Home() {
 
             <Reveal from="left" delay={0.1} className="relative">
               <img
-                src={mediaUrl(settings?.aboutImage || '/images/hero/about-team.jpg')}
+                // Strictly local image to bypass broken backend configurations
+                src="/images/hero/hero-train.jpg"
                 alt="Travelling through the Sri Lankan hill country"
                 className="aspect-[4/3] w-full rounded-3xl object-cover shadow-lift"
               />
@@ -190,7 +191,8 @@ export default function Home() {
         {/* Ceylon panel */}
         <section className="relative overflow-hidden">
           <img
-            src={mediaUrl(settings?.ceylonImage || '/images/hero/ceylon.jpg')}
+            // Strictly local image to bypass broken backend configurations
+            src="/images/hero/ceylon.jpg"
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
           />
