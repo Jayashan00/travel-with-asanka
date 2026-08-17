@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, BadgeCheck, Clock, HandCoins, ShieldCheck } from 'lucide-react'
@@ -20,6 +21,26 @@ const promises = [
   { Icon: Clock, title: 'We wait, happily', text: 'One more photo, one more temple, one more cup of tea. The schedule bends around you.' },
   { Icon: BadgeCheck, title: 'Local knowledge', text: 'Which park the elephants moved to this week, and which viewpoint is empty at 7am.' },
 ]
+
+/**
+ * Transparent artwork layered over the Ceylon panel.
+ * Change this one line if your file is named differently.
+ */
+const CEYLON_ART = '/images/hero/ceylon-img.png'
+
+/** Local <img> that swaps to a known-good photo instead of showing a broken icon. */
+function LocalImage({ src, fallback, alt = '', className }) {
+  const [current, setCurrent] = useState(src)
+  return (
+    <img
+      src={current}
+      alt={alt}
+      loading="lazy"
+      onError={() => current !== fallback && setCurrent(fallback)}
+      className={className}
+    />
+  )
+}
 
 export default function Home() {
   const { settings } = useSite()
@@ -75,8 +96,9 @@ export default function Home() {
             </Reveal>
 
             <Reveal from="left" delay={0.1} className="relative">
-              <img
-                src={mediaUrl(settings?.aboutImage || '/images/about-team.svg')}
+              <LocalImage
+                src="/images/hero/hero-train.jpg"
+                fallback="/images/hero/hero-tea-country.jpg"
                 alt="Travelling through the Sri Lankan hill country"
                 className="aspect-[4/3] w-full rounded-3xl object-cover shadow-lift"
               />
@@ -190,18 +212,33 @@ export default function Home() {
         {/* Ceylon panel */}
         <section className="relative overflow-hidden">
           <img
-            src={mediaUrl(settings?.ceylonImage || '/images/ceylon.svg')}
+            src="/images/hero/ceylon.jpg"
             alt=""
+            aria-hidden="true"
             className="absolute inset-0 h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-ink/70" />
-          <div className="container-x relative py-24 text-center text-white">
+          <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/70 to-ink/85" />
+
+          {/* Transparent artwork, drifting gently behind the words */}
+          <motion.img
+            src={CEYLON_ART}
+            alt=""
+            aria-hidden="true"
+            onError={(e) => { e.currentTarget.style.display = 'none' }}
+            initial={{ opacity: 0, scale: 0.94 }}
+            whileInView={{ opacity: 0.18, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+            className="pointer-events-none absolute left-1/2 top-1/2 w-[min(78vw,620px)] -translate-x-1/2 -translate-y-1/2 select-none object-contain animate-float"
+          />
+
+          <div className="container-x relative z-10 py-24 text-center text-white">
             <Reveal>
               <p className="eyebrow justify-center text-mango">Democratic Socialist Republic of</p>
-              <h2 className="mt-3 font-display text-[clamp(2.4rem,6vw,4rem)] font-semibold">
+              <h2 className="mt-3 font-display text-[clamp(2.4rem,6vw,4rem)] font-semibold drop-shadow-[0_2px_18px_rgba(15,42,29,0.55)]">
                 {settings?.ceylonSectionTitle || 'Ceylon'}
               </h2>
-              <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/80">
+              <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/85">
                 {settings?.countryIntro}
               </p>
               <Link to="/blog" className="btn-accent mt-8">Explore the island</Link>

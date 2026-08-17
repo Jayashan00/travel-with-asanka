@@ -1,9 +1,14 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Briefcase, Fuel, Settings2, Snowflake, Users } from 'lucide-react'
+import { Briefcase, Fuel, Heart, Settings2, Snowflake, Users } from 'lucide-react'
 import { mediaUrl, money } from '../lib/api'
+import { useWishlist } from '../lib/WishlistContext'
 
 export default function VehicleCard({ vehicle, index = 0 }) {
+  const { has, toggle } = useWishlist()
+  const key = `vehicle:${vehicle.id}`
+  const saved = has(key)
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 26 }}
@@ -19,6 +24,26 @@ export default function VehicleCard({ vehicle, index = 0 }) {
           loading="lazy"
           className="h-52 w-full object-cover transition duration-700 group-hover:scale-105"
         />
+        <button
+          onClick={() =>
+            toggle({
+              key,
+              type: 'vehicle',
+              id: vehicle.id,
+              name: vehicle.name,
+              image: mediaUrl(vehicle.image),
+              href: `/vehicles/${vehicle.slug || vehicle.id}`,
+            })
+          }
+          aria-pressed={saved}
+          aria-label={saved ? `Remove ${vehicle.name} from your list` : `Save ${vehicle.name} to your list`}
+          className={`absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full backdrop-blur transition ${
+            saved ? 'bg-leaf text-white' : 'bg-white/85 text-ink/55 hover:text-leaf'
+          }`}
+        >
+          <Heart size={16} fill={saved ? 'currentColor' : 'none'} />
+        </button>
+
         <div className="absolute left-4 top-4 flex gap-2">
           {vehicle.bestSelling && (
             <span className="rounded-full bg-mango px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-ink">

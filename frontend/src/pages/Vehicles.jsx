@@ -6,6 +6,9 @@ import { CardSkeleton, EmptyState } from '../components/Loader'
 import { useCollection } from '../lib/useCollection'
 import { money } from '../lib/api'
 
+/** Banner photo at the top of the page. */
+const HEADER_IMAGE = '/images/hero/vehicle.jpg'
+
 export default function Vehicles() {
   const { data: vehicles, loading } = useCollection('/vehicles')
   const [filter, setFilter] = useState('All')
@@ -21,7 +24,7 @@ export default function Vehicles() {
       <PageHeader
         title="Vehicles & tariffs"
         subtitle="Clean, air conditioned vehicles with fuel and the driver included in every price."
-        image="/images/gallery-10.svg"
+        image={HEADER_IMAGE}
         crumbs={['Vehicles']}
       />
 

@@ -22,7 +22,7 @@ export default function Gallery() {
       <PageHeader
         title="Image gallery"
         subtitle="Smiles and memories from travellers we have driven around the island."
-        image="/images/gallery-6.svg"
+        image="/images/hero/hero-galle.jpg"
         crumbs={['Gallery']}
       />
 

@@ -1,13 +1,19 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { mediaUrl } from '../lib/api'
 
-export default function PageHeader({ title, subtitle, image = '/images/hero/contact-hero.jpg', crumbs = [] }) {
+const FALLBACK_IMAGE = '/images/hero/contact-hero.jpg'
+
+export default function PageHeader({ title, subtitle, image = FALLBACK_IMAGE, crumbs = [] }) {
+  const [src, setSrc] = useState(mediaUrl(image) || FALLBACK_IMAGE)
+
   return (
     <section className="relative h-[46vh] min-h-[320px] overflow-hidden">
       <motion.img
-        src={mediaUrl(image)}
+        src={src}
         alt=""
+        onError={() => setSrc(FALLBACK_IMAGE)}
         initial={{ scale: 1.12 }}
         animate={{ scale: 1 }}
         transition={{ duration: 6, ease: 'linear' }}

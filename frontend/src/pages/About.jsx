@@ -1,10 +1,10 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { HeartHandshake, Languages, MapPinned, Users } from 'lucide-react'
 import PageHeader from '../components/PageHeader'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 import { useSite } from '../lib/SiteContext'
-import { mediaUrl } from '../lib/api'
 
 const facts = [
   { Icon: MapPinned, value: 'All 9 provinces', label: 'Routes we drive regularly' },
@@ -12,6 +12,28 @@ const facts = [
   { Icon: Languages, value: 'English & Sinhala', label: 'Spoken by your driver' },
   { Icon: HeartHandshake, value: 'Fixed prices', label: 'Agreed before you travel' },
 ]
+
+/** Photographs for the two body sections. */
+const TEAM_IMAGE = '/images/hero/team.jpeg'
+const TOGETHER_IMAGE = '/images/hero/together.jpeg'
+
+/** Banner photo at the top of the page. */
+const HEADER_IMAGE = '/images/hero/about-team.jpg'
+
+/** Shows the photo, quietly swapping to a fallback if the file is missing. */
+function AboutImage({ src, fallback, alt, className }) {
+  const [current, setCurrent] = useState(src)
+
+  return (
+    <img
+      src={current}
+      alt={alt}
+      loading="lazy"
+      onError={() => current !== fallback && setCurrent(fallback)}
+      className={className}
+    />
+  )
+}
 
 export default function About() {
   const { settings } = useSite()
@@ -21,7 +43,7 @@ export default function About() {
       <PageHeader
         title={settings?.aboutTitle || 'About Us'}
         subtitle={settings?.aboutIntro}
-        image={settings?.aboutImage || '/images/about-team.svg'}
+        image={settings?.aboutImage || HEADER_IMAGE}
         crumbs={['About']}
       />
 
@@ -49,9 +71,10 @@ export default function About() {
           </Reveal>
 
           <Reveal from="left" delay={0.1}>
-            <img
-              src={mediaUrl(settings?.aboutImage || '/images/about-team.svg')}
-              alt="Asanka with guests"
+            <AboutImage
+              src={TEAM_IMAGE}
+              fallback={HEADER_IMAGE}
+              alt="Asanka with guests at Sigiriya"
               className="aspect-[4/3] w-full rounded-3xl object-cover shadow-lift"
             />
           </Reveal>
@@ -75,8 +98,9 @@ export default function About() {
       <section className="container-x py-20">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <Reveal>
-            <img
-              src={mediaUrl(settings?.aboutSecondaryImage || '/images/about-together.svg')}
+            <AboutImage
+              src={TOGETHER_IMAGE}
+              fallback="/images/hero/about-together.jpg"
               alt="Working together"
               className="aspect-[4/3] w-full rounded-3xl object-cover shadow-lift"
             />

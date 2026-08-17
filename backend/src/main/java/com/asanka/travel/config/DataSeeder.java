@@ -88,7 +88,7 @@ public class DataSeeder implements CommandLineRunner {
     private void seedSettings() {
         if (settings.existsById("site")) return;
         SiteSettings s = new SiteSettings();
-        s.setLogo("/images/ui/logo.svg");
+        s.setLogo(null);
         s.setHeroSlides(List.of(
                 slide("/images/hero/hero-sigiriya.jpg", "Feel the nature",
                         "Sigiriya at sunrise, on the road before the crowds wake up.",

@@ -96,3 +96,30 @@
 
 .hide-scrollbar::-webkit-scrollbar { display: none; }
 .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ---------------------------------------------------------------- Leaflet map */
+/* The pin is a bare SVG, so strip Leaflet's default marker box. */
+.twa-pin {
+  background: transparent;
+  border: none;
+  filter: drop-shadow(0 6px 10px rgba(15, 42, 29, 0.35));
+  transition: transform 0.2s ease;
+}
+.twa-pin:hover { transform: translateY(-3px); }
+
+/* Match Leaflet's popup to the site's rounded, soft-shadow style. */
+.leaflet-popup-content-wrapper {
+  border-radius: 1.25rem;
+  box-shadow: 0 30px 60px -30px rgba(15, 42, 29, 0.55);
+  padding: 0.7rem;
+}
+.leaflet-popup-content { margin: 0; }
+
+/* Keep a tall popup inside the map instead of letting it run off the top. */
+.leaflet-popup-content-wrapper > div {
+  max-height: 58vh;
+  overflow-y: auto;
+}
+.leaflet-popup-tip { box-shadow: none; }
+.leaflet-container { font-family: inherit; background: #F3EDE1; }
+.leaflet-control-attribution { font-size: 10px; }

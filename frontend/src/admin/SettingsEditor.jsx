@@ -88,7 +88,7 @@ export default function SettingsEditor({ notify }) {
         <h2 className="text-lg">Brand</h2>
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
           <TextField label="Business name" k="brandName"  value={form.brandName ?? ''} onChange={set('brandName')} />
-          <TextField label="Tagline (shown in the top bar)" k="tagline"  value={form.tagline ?? ''} onChange={set('tagline')} />
+          <TextField label="Tagline (shown in the footer)" k="tagline"  value={form.tagline ?? ''} onChange={set('tagline')} />
           <div className="sm:col-span-2">
             <ImagePicker label="Logo" value={form.logo} onChange={setImage('logo')} hint="A transparent PNG or SVG works best. Leave empty to use the lettermark." />
           </div>

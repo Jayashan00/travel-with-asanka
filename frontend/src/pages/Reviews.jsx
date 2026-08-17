@@ -46,7 +46,7 @@ export default function Reviews() {
       <PageHeader
         title="Guest reviews"
         subtitle="Five stars on Google and TripAdvisor, written by people we actually drove."
-        image="/images/gallery-9.svg"
+        image="/images/hero/about-together.jpg"
         crumbs={['Reviews']}
       />
 

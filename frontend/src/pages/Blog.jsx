@@ -24,7 +24,7 @@ export default function Blog() {
       <PageHeader
         title="Destinations"
         subtitle="Guides to the places our guests ask about most, with the timings that actually matter."
-        image="/images/gallery-11.svg"
+        image="/images/hero/hero-tea-country.jpg"
         crumbs={['Destinations']}
       />
 

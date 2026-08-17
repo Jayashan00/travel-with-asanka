@@ -4,6 +4,8 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
 import Home from './pages/Home'
+import Location from './pages/Location'
+import Wishlist from './pages/Wishlist'
 import About from './pages/About'
 import Vehicles from './pages/Vehicles'
 import VehicleDetail from './pages/VehicleDetail'
@@ -35,9 +37,11 @@ function PublicSite() {
           <Route path="/vehicles/:slug" element={<VehicleDetail />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/location" element={<Location />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/wishlist" element={<Wishlist />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

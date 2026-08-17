@@ -37,7 +37,7 @@ export default function Contact() {
       <PageHeader
         title="Contact"
         subtitle="Send a message and Asanka will reply personally, usually within a few hours."
-        image="/images/contact-hero.svg"
+        	image="/images/hero/contact-hero.jpg"
         crumbs={['Contact']}
       />
 
