@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080'
+export const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8080'
 
 export const api = axios.create({ baseURL: `${API_URL}/api` })
 
@@ -56,4 +56,20 @@ export function mediaUrl(path) {
 export function money(value) {
   if (value === null || value === undefined || value === '') return '—'
   return `LKR ${Number(value).toLocaleString('en-LK')}`
+}
+export function priceText(value, currency = 'USD') {
+  if (value === null || value === undefined || value === '') return '—'
+  const amount = Number(value)
+  if (Number.isNaN(amount)) return '—'
+  const code = String(currency || 'USD').toUpperCase()
+  try {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: code,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(amount)
+  } catch {
+    return `${code} ${amount.toFixed(2)}`
+  }
 }

@@ -91,7 +91,7 @@ export default function Home() {
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
                 <Link to="/contact" className="btn-primary">Plan my trip <ArrowRight size={16} /></Link>
-                <Link to="/about" className="btn-ghost">Meet Asanka</Link>
+                <Link to="/about" className="btn-ghost">Meet Shan</Link>
               </div>
             </Reveal>
 
@@ -279,12 +279,12 @@ export default function Home() {
                 <div className="flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-end">
                   <Link to="/contact" className="btn-accent">Get in touch</Link>
                   <a
-                    href={`https://wa.me/${settings?.whatsapp || '94761857110'}`}
+                    href={`https://wa.me/${settings?.whatsapp || '94764412050'}`}
                     target="_blank"
                     rel="noreferrer"
                     className="btn border border-white/35 text-white hover:bg-white hover:text-ink"
                   >
-                    WhatsApp Asanka
+                     WhatsApp Shan
                   </a>
                 </div>
               </div>

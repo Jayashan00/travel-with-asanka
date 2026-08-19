@@ -60,7 +60,7 @@ export default function About() {
               best service at the best price.
             </p>
             <p className="mt-4 leading-relaxed text-ink/70">
-              Asanka has been driving visitors around Sri Lanka for over a decade, from single airport runs to three
+              Shan has been driving visitors around Sri Lanka for over a decade, from single airport runs to three
               week island loops. He knows which viewpoints are quiet at sunrise, which roads flood in the monsoon, and
               which small kade makes the best kottu on the way to Ella.
             </p>
@@ -74,7 +74,7 @@ export default function About() {
             <AboutImage
               src={TEAM_IMAGE}
               fallback={HEADER_IMAGE}
-              alt="Asanka with guests at Sigiriya"
+              alt="Shan with guests at Sigiriya"
               className="aspect-[4/3] w-full rounded-3xl object-cover shadow-lift"
             />
           </Reveal>
@@ -140,7 +140,7 @@ export default function About() {
           {[
             ['Tell us your dates', 'Send your arrival date, group size and the places on your list.'],
             ['Get a plan and a price', 'A day-by-day route with a fixed total, adjusted until it suits you.'],
-            ['Meet your driver', 'Asanka is waiting at the airport or your hotel with a name board.'],
+            ['Meet your driver', 'Shan is waiting at the airport or your hotel with a name board.'],
             ['Travel, and change it freely', 'Stay longer somewhere you love. The plan follows you, not the reverse.'],
           ].map(([title, text], i) => (
             <Reveal key={title} delay={i * 0.08}>

@@ -16,6 +16,7 @@ export default function SearchOverlay({ open, onClose }) {
 
   const { data: vehicles } = useCollection('/vehicles')
   const { data: posts } = useCollection('/posts')
+  const { data: tours } = useCollection('/tours')
 
   useEffect(() => {
     if (open) {
@@ -55,6 +56,14 @@ export default function SearchOverlay({ open, onClose }) {
         image: p.coverImage,
         to: `/blog/${p.slug}`,
       })),
+        ...tours.filter((t) => match(t.title, t.category, t.summary, (t.locations || []).join(' '))).map((t) => ({
+          key: `tour-${t.id}`,
+          group: 'Tour',
+          title: t.title,
+          sub: t.category,
+          image: t.image,
+          to: `/tours/${t.slug || t.id}`,
+        })),
       ...vehicles.filter((v) => match(v.name, v.category)).map((v) => ({
         key: `vehicle-${v.id}`,
         group: 'Vehicle',
@@ -64,7 +73,7 @@ export default function SearchOverlay({ open, onClose }) {
         to: `/vehicles/${v.slug}`,
       })),
     ].slice(0, 12)
-  }, [term, posts, vehicles])
+  }, [term, posts, vehicles,tours])
 
   const go = (to) => {
     onClose()
@@ -95,7 +104,7 @@ export default function SearchOverlay({ open, onClose }) {
                 ref={inputRef}
                 value={term}
                 onChange={(e) => setTerm(e.target.value)}
-                placeholder="Search places, guides and vehicles…"
+                placeholder="Search tours, places, guides and vehicles…"
                 aria-label="Search the site"
                 className="w-full bg-transparent text-base outline-none placeholder:text-ink/35"
               />

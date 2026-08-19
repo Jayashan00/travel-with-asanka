@@ -37,7 +37,7 @@ export default function Wishlist() {
                 {items.length} {items.length === 1 ? 'item' : 'items'} saved on this device.
               </p>
               <div className="flex flex-wrap gap-3">
-                <Link to={enquiryLink} className="btn-primary">Send this list to Asanka</Link>
+                <Link to={enquiryLink} className="btn-primary">Send this list to Shan</Link>
                 <button onClick={clear} className="btn-ghost">Clear all</button>
               </div>
             </div>
@@ -57,7 +57,7 @@ export default function Wishlist() {
                     </div>
                     <div className="p-6">
                       <p className="text-[11px] uppercase tracking-[0.18em] text-ink/45">
-                        {item.type === 'vehicle' ? 'Vehicle' : 'Place'}
+                        {item.type === 'vehicle' ? 'Vehicle' : item.type === 'tour' ? 'Tour' : 'Place'}
                       </p>
                       <h3 className="mt-1 font-display text-xl font-semibold text-ink">{item.name}</h3>
                       <div className="mt-4 flex items-center justify-between">

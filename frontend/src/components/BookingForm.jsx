@@ -102,7 +102,7 @@ export default function BookingForm({ presetVehicleId = '', compact = false, onD
         <div>
           <label className="label" htmlFor="bk-vehicle">Preferred vehicle</label>
           <select id="bk-vehicle" className="field" value={form.vehicleId} onChange={set('vehicleId')}>
-            <option value="">Let Asanka suggest one</option>
+            <option value="">Let us suggest one</option>
             {vehicles.map((v) => <option key={v.id} value={v.id}>{v.name} · {v.seats} seats</option>)}
           </select>
         </div>

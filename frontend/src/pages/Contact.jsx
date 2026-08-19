@@ -27,7 +27,7 @@ export default function Contact() {
 
   const details = [
     { Icon: MapPin, label: 'Address', value: settings?.contactAddress || 'Kandy, Sri Lanka' },
-    { Icon: Mail, label: 'Email', value: settings?.contactEmail || 'info@travelwithasanka.com', href: `mailto:${settings?.contactEmail || 'info@travelwithasanka.com'}` },
+    { Icon: Mail, label: 'Email', value: settings?.contactEmail || 'travelwithshankandy@gmail.com', href: `mailto:${settings?.contactEmail || 'info@denoahlankaholidays.com'}` },
     { Icon: Phone, label: 'Phone', value: settings?.contactPhone || '+94 76 185 7110', href: `tel:${(settings?.contactPhone || '+94761857110').replace(/\s/g, '')}` },
     { Icon: MessageCircle, label: 'WhatsApp', value: 'Message us any time', href: `https://wa.me/${settings?.whatsapp || '94761857110'}` },
   ]
@@ -36,7 +36,7 @@ export default function Contact() {
     <>
       <PageHeader
         title="Contact"
-        subtitle="Send a message and Asanka will reply personally, usually within a few hours."
+        subtitle="Send a message and Shan will reply personally, usually within a few hours."
         	image="/images/hero/contact-hero.jpg"
         crumbs={['Contact']}
       />

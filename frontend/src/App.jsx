@@ -7,6 +7,8 @@ import Home from './pages/Home'
 import Location from './pages/Location'
 import Wishlist from './pages/Wishlist'
 import About from './pages/About'
+import Tours from './pages/Tours'
+import TourDetail from './pages/TourDetail'
 import Vehicles from './pages/Vehicles'
 import VehicleDetail from './pages/VehicleDetail'
 import Blog from './pages/Blog'
@@ -33,6 +35,8 @@ function PublicSite() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/tours" element={<Tours />} />
+          <Route path="/tours/:slug" element={<TourDetail />} />
           <Route path="/vehicles" element={<Vehicles />} />
           <Route path="/vehicles/:slug" element={<VehicleDetail />} />
           <Route path="/blog" element={<Blog />} />

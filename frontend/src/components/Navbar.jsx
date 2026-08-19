@@ -10,6 +10,7 @@ import SearchOverlay from './SearchOverlay'
 const links = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
+  { to: '/tours', label: 'Tours' },
   { to: '/vehicles', label: 'Vehicles' },
   { to: '/blog', label: 'Destinations' },
   { to: '/location', label: 'Location' },
@@ -49,7 +50,7 @@ export default function Navbar() {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  const phone = settings?.contactPhone || '+94 76 185 7110'
+  const phone = settings?.contactPhone || '+94 76 441 2050'
 
   return (
     <>
@@ -69,15 +70,15 @@ export default function Navbar() {
               />
             ) : (
               <span className="grid h-11 w-11 place-items-center rounded-2xl bg-leaf text-lg font-bold text-white">
-                A
+                D
               </span>
             )}
             <span className="leading-tight">
-              <span className="block text-[10px] font-semibold uppercase tracking-[0.3em] text-ink/50">
-                Travel with
+              <span className="block font-display text-xl font-semibold leading-tight text-ink">
+               {settings?.brandName || 'Denoah Lanka Holidays'}
               </span>
-              <span className="block font-display text-xl font-semibold text-ink">
-                {(settings?.brandName || 'Travel With Asanka').replace(/^Travel With /i, '')}
+               <span className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-ink/50">
+                Travel with Shan
               </span>
             </span>
           </Link>

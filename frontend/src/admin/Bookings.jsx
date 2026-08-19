@@ -111,7 +111,7 @@ export default function Bookings({ notify }) {
                   ['Route', [b.pickupLocation, b.dropLocation].filter(Boolean).join(' → ') || '—'],
                   ['Pick up', [b.pickupDate, b.pickupTime].filter(Boolean).join(' at ') || '—'],
                   ['Travellers', `${b.passengers || 1} · ${b.days || 1} day${(b.days || 1) > 1 ? 's' : ''}`],
-                  ['Vehicle', b.vehicleName || 'Asanka to suggest'],
+                  ['Vehicle', b.vehicleName || 'To be suggested'],
                 ].map(([label, value]) => (
                   <div key={label}>
                     <dt className="text-[11px] uppercase tracking-wider text-ink/45">{label}</dt>

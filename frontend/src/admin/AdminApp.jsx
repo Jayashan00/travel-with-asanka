@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, Navigate, NavLink, Route, Routes, useNavigate } from 'react-router-dom'
 import {
-  CalendarCheck, Car, ExternalLink, Images, LayoutDashboard, LogOut, Mail,
+    CalendarCheck, Car, Compass, ExternalLink, Images, LayoutDashboard, LogOut, Mail,
   MapPinned, MessageSquareQuote, Settings, Sparkles, Menu, X,
 } from 'lucide-react'
 import { api, auth } from '../lib/api'
@@ -18,6 +18,7 @@ const nav = [
   { to: '/admin/bookings', label: 'Bookings', Icon: CalendarCheck },
   { to: '/admin/messages', label: 'Messages', Icon: Mail },
   { to: '/admin/settings', label: 'Site content', Icon: Settings },
+  { to: '/admin/tours', label: 'Tours', Icon: Compass },
   { to: '/admin/vehicles', label: 'Vehicles', Icon: Car },
   { to: '/admin/posts', label: 'Destinations', Icon: MapPinned },
   { to: '/admin/gallery', label: 'Gallery', Icon: Images },
@@ -78,7 +79,7 @@ export default function AdminApp() {
           }`}
         >
           <div className="flex items-center justify-between px-2">
-            <Link to="/admin" className="font-display text-lg text-white">Asanka admin</Link>
+            <Link to="/admin" className="font-display text-lg text-white">Denoah admin</Link>
             <button className="lg:hidden" onClick={() => setMenuOpen(false)} aria-label="Close menu">
               <X size={18} />
             </button>
@@ -126,6 +127,7 @@ export default function AdminApp() {
             <Route path="bookings" element={<Bookings notify={notify} />} />
             <Route path="messages" element={<Inbox notify={notify} />} />
             <Route path="settings" element={<SettingsEditor notify={notify} />} />
+            <Route path="tours" element={<ToursAdmin notify={notify} />} />
             <Route path="vehicles" element={<VehiclesAdmin notify={notify} />} />
             <Route path="posts" element={<PostsAdmin notify={notify} />} />
             <Route path="gallery" element={<GalleryAdmin notify={notify} />} />
@@ -138,6 +140,58 @@ export default function AdminApp() {
 
       <Toast toast={toast} onClose={() => setToast(null)} />
     </div>
+  )
+}
+function ToursAdmin({ notify }) {
+  return (
+    <CrudManager
+      notify={notify}
+      title="Tours"
+      intro="The tour packages listed on the Tours page."
+      path="tours"
+      searchKeys={['title', 'category']}
+      emptyRecord={{
+        title: '', category: 'Cultural', image: '', summary: '', description: '',
+        locations: '', days: 3, nights: 2, maxGuests: 6, price: 0, oldPrice: '',
+        currency: 'USD', rating: 5, reviewCount: 0, highlights: '', includes: '',
+        excludes: '', itinerary: '', gallery: '', featured: false, active: true, sortOrder: 0,
+      }}
+      columns={[
+        { key: 'image', label: 'Photo', type: 'image' },
+        { key: 'title', label: 'Tour' },
+        { key: 'category', label: 'Type' },
+        { key: 'days', label: 'Days' },
+        { key: 'price', label: 'From' },
+        { key: 'active', label: 'Live', type: 'boolean' },
+      ]}
+      fields={[
+        { key: 'title', label: 'Tour title', full: true, placeholder: 'Cultural Triangle Discovery (04 Days | 03 Nights)' },
+        {
+          key: 'category', label: 'Tour type', type: 'select',
+          options: ['Cultural', 'Hill Country', 'Wildlife', 'Beach', 'Round Tour', 'Pilgrimage', 'Honeymoon', 'City Break', 'Adventure', 'Family'],
+        },
+        { key: 'sortOrder', label: 'Position in the list', type: 'number' },
+        { key: 'image', label: 'Main photo', type: 'image', full: true },
+        { key: 'summary', label: 'Short summary', type: 'textarea', rows: 3, full: true, hint: 'Shown on the card. Two lines is plenty.' },
+        { key: 'description', label: 'Full description', type: 'textarea', rows: 6, full: true },
+        { key: 'days', label: 'Days', type: 'number' },
+        { key: 'nights', label: 'Nights', type: 'number' },
+        { key: 'maxGuests', label: 'Maximum guests', type: 'number' },
+        { key: 'currency', label: 'Currency', type: 'select', options: ['USD', 'EUR', 'GBP', 'LKR'] },
+        { key: 'price', label: 'Price from (per person)', type: 'number' },
+        { key: 'oldPrice', label: 'Was price (optional)', type: 'number', hint: 'Higher than the price shows a struck through “was” price and a discount badge.' },
+        { key: 'rating', label: 'Rating out of 5', type: 'number' },
+        { key: 'reviewCount', label: 'Number of reviews', type: 'number' },
+        { key: 'locations', label: 'Places covered', type: 'list', full: true, hint: 'One per line. These fill the Location filter.' },
+        { key: 'highlights', label: 'Highlights', type: 'list', full: true, hint: 'One per line.' },
+        { key: 'itinerary', label: 'Day by day plan', type: 'list', rows: 8, full: true, hint: 'One day per line, e.g. “Day 1 — Airport to Sigiriya: ...”.' },
+        { key: 'includes', label: 'What is included', type: 'list', full: true, hint: 'One per line.' },
+        { key: 'excludes', label: 'Not included', type: 'list', full: true, hint: 'One per line.' },
+        { key: 'gallery', label: 'Extra photos', type: 'list', full: true, hint: 'One image path per line, e.g. /images/places/ella.jpg' },
+        { key: 'featured', label: 'Feature on the homepage', type: 'checkbox' },
+        { key: 'active', label: 'Show on the site', type: 'checkbox' },
+      ]}
+    />
   )
 }
 
