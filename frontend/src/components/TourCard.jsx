@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { CalendarDays, Heart, MapPin, Users } from 'lucide-react'
 import { mediaUrl, priceText } from '../lib/api'
+import { useSite } from '../lib/SiteContext'
+import { messageForTour, waLink } from '../lib/whatsapp'
+import WhatsAppIcon from './WhatsAppIcon'
 import { useWishlist } from '../lib/WishlistContext'
 import Stars from './Stars'
 
@@ -10,6 +13,7 @@ const FALLBACK_IMAGE = '/images/hero/hero-sigiriya.jpg'
 /** One tour package in the listing grid. */
 export default function TourCard({ tour, index = 0 }) {
   const { has, toggle } = useWishlist()
+  const { settings } = useSite()
   const key = `tour:${tour.id}`
   const saved = has(key)
   const href = `/tours/${tour.slug || tour.id}`
@@ -111,18 +115,35 @@ export default function TourCard({ tour, index = 0 }) {
         </div>
         <p className="text-[11px] uppercase tracking-wider text-ink/45">From, per person</p>
 
-        <div className="mt-auto flex items-center justify-between gap-3 border-t border-ink/8 pt-4 text-xs text-ink/65">
-          <span className="flex items-center gap-1.5">
-            <CalendarDays size={14} className="text-leaf" />
-            {tour.days} {tour.days === 1 ? 'day' : 'days'}
-            {tour.nights > 0 ? ` / ${tour.nights}N` : ''}
-          </span>
-          <span className="flex items-center gap-1.5">
-            <Users size={14} className="text-leaf" /> up to {tour.maxGuests}
-          </span>
-          <Link to={href} className="font-semibold text-leaf transition hover:text-leaf-dark">
-            Explore →
-          </Link>
+        <div className="mt-auto border-t border-ink/8 pt-4">
+          <div className="flex items-center justify-between gap-3 text-xs text-ink/65">
+            <span className="flex items-center gap-1.5">
+              <CalendarDays size={14} className="text-leaf" />
+              {tour.days} {tour.days === 1 ? 'day' : 'days'}
+              {tour.nights > 0 ? ` / ${tour.nights}N` : ''}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Users size={14} className="text-leaf" /> up to {tour.maxGuests}
+            </span>
+          </div>
+
+          <div className="mt-4 flex items-center gap-2">
+            <a
+              href={waLink(settings?.whatsapp, messageForTour(tour.title))}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="flex flex-1 items-center justify-center gap-1.5 rounded-full bg-[#25D366] px-3 py-2.5 text-xs font-semibold text-white transition hover:bg-[#1EBE5B]"
+            >
+              <WhatsAppIcon size={15} /> WhatsApp
+            </a>
+            <Link
+              to={href}
+              className="flex flex-1 items-center justify-center rounded-full border border-ink/12 px-3 py-2.5 text-xs font-semibold text-ink/75 transition hover:border-leaf hover:text-leaf"
+            >
+              Explore →
+            </Link>
+          </div>
         </div>
       </div>
     </motion.article>
