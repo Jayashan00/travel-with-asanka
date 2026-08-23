@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { Loader2, Lock } from 'lucide-react'
 import { api, auth, errorText } from '../lib/api'
 
@@ -7,7 +6,6 @@ export default function Login() {
   const [form, setForm] = useState({ username: '', password: '' })
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
-  const navigate = useNavigate()
 
   const submit = async (e) => {
     e.preventDefault()
@@ -16,10 +14,10 @@ export default function Login() {
     try {
       const { data } = await api.post('/auth/login', form)
       auth.save(data.token)
-      navigate('/admin')
+      // Full page load so AdminApp re-runs its sign in check and finds the new token.
+      window.location.href = '/admin'
     } catch (err) {
       setError(errorText(err, 'Sign in failed. Check the username and password.'))
-    } finally {
       setBusy(false)
     }
   }
@@ -36,13 +34,27 @@ export default function Login() {
         <div className="mt-6 space-y-4">
           <div>
             <label className="label" htmlFor="lg-user">Username</label>
-            <input id="lg-user" required autoFocus className="field" value={form.username}
-              onChange={(e) => setForm({ ...form, username: e.target.value })} />
+            <input
+              id="lg-user"
+              required
+              autoFocus
+              autoComplete="username"
+              className="field"
+              value={form.username}
+              onChange={(e) => setForm({ ...form, username: e.target.value })}
+            />
           </div>
           <div>
             <label className="label" htmlFor="lg-pass">Password</label>
-            <input id="lg-pass" type="password" required className="field" value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })} />
+            <input
+              id="lg-pass"
+              type="password"
+              required
+              autoComplete="current-password"
+              className="field"
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+            />
           </div>
         </div>
 

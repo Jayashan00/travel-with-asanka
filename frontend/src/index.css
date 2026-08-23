@@ -9,10 +9,12 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
 
   body {
     @apply bg-sand text-ink font-sans antialiased;
+    overflow-x: clip;
   }
 
   h1, h2, h3, h4 {

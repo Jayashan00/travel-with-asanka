@@ -1,9 +1,11 @@
 import { useState } from 'react'
-import { Loader2, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
+import { Loader2, Mail, MapPin, Phone } from 'lucide-react'
 import PageHeader from '../components/PageHeader'
 import BookingForm from '../components/BookingForm'
 import Reveal from '../components/Reveal'
 import { api, errorText } from '../lib/api'
+import WhatsAppIcon from '../components/WhatsAppIcon'
+import { messageForPath, waLink } from '../lib/whatsapp'
 import { useSite } from '../lib/SiteContext'
 
 export default function Contact() {
@@ -27,9 +29,8 @@ export default function Contact() {
 
   const details = [
     { Icon: MapPin, label: 'Address', value: settings?.contactAddress || 'Kandy, Sri Lanka' },
-    { Icon: Mail, label: 'Email', value: settings?.contactEmail || 'travelwithshankandy@gmail.com', href: `mailto:${settings?.contactEmail || 'info@denoahlankaholidays.com'}` },
-    { Icon: Phone, label: 'Phone', value: settings?.contactPhone || '+94 76 185 7110', href: `tel:${(settings?.contactPhone || '+94761857110').replace(/\s/g, '')}` },
-    { Icon: MessageCircle, label: 'WhatsApp', value: 'Message us any time', href: `https://wa.me/${settings?.whatsapp || '94761857110'}` },
+    { Icon: Mail, label: 'Email', value: settings?.contactEmail || 'travelwithshankandy@gmail.com', href: `mailto:${settings?.contactEmail || 'travelwithshankandy@gmail.com'}` },
+    { Icon: Phone, label: 'Phone', value: settings?.contactPhone || '+94 76 441 2050', href: `tel:${(settings?.contactPhone || '+94764412050').replace(/\s/g, '')}` },
   ]
 
   return (
@@ -44,6 +45,32 @@ export default function Contact() {
       <section className="container-x py-16">
         <div className="grid gap-10 lg:grid-cols-[360px,1fr]">
           <Reveal className="space-y-4">
+            <a
+              href={waLink(settings?.whatsapp, messageForPath('/contact'))}
+              target="_blank"
+              rel="noreferrer"
+              className="group block overflow-hidden rounded-3xl bg-[#075E54] p-6 text-white shadow-lift transition hover:-translate-y-0.5"
+            >
+              <div className="flex items-center gap-4">
+                <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-[#25D366]">
+                  <WhatsAppIcon size={28} />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-white/60">
+                    Fastest way to reach us
+                  </p>
+                  <p className="font-display text-xl font-semibold">Chat on WhatsApp</p>
+                </div>
+              </div>
+              <p className="mt-4 text-sm leading-relaxed text-white/75">
+                Most of our guests plan their trip with us on WhatsApp. Send your dates and how many
+                are travelling, and we will reply with a route and a price.
+              </p>
+              <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold transition group-hover:bg-[#1EBE5B]">
+                <WhatsAppIcon size={16} /> Message us now
+              </span>
+            </a>
+
             {details.map(({ Icon, label, value, href }) => (
               <div key={label} className="card flex items-start gap-4 p-6">
                 <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-leaf/10 text-leaf">

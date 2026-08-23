@@ -2,12 +2,16 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ArrowLeft, Briefcase, Check, Fuel, Settings2, Snowflake, Users } from 'lucide-react'
 import BookingForm from '../components/BookingForm'
+import WhatsAppIcon from '../components/WhatsAppIcon'
+import { useSite } from '../lib/SiteContext'
+import { messageForVehicle, waLink } from '../lib/whatsapp'
 import Reveal from '../components/Reveal'
 import { api, mediaUrl, money } from '../lib/api'
 import { EmptyState } from '../components/Loader'
 
 export default function VehicleDetail() {
   const { slug } = useParams()
+  const { settings } = useSite()
   const [vehicle, setVehicle] = useState(null)
   const [loading, setLoading] = useState(true)
   const [failed, setFailed] = useState(false)
@@ -108,6 +112,14 @@ export default function VehicleDetail() {
         </Reveal>
 
         <div className="lg:sticky lg:top-28 lg:self-start">
+          <a
+            href={waLink(settings?.whatsapp, messageForVehicle(vehicle.name))}
+            target="_blank"
+            rel="noreferrer"
+            className="mb-4 flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#1EBE5B]"
+          >
+            <WhatsAppIcon size={17} /> Ask about this vehicle on WhatsApp
+          </a>
           <BookingForm presetVehicleId={vehicle.id} compact />
         </div>
       </div>

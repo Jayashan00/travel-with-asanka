@@ -59,25 +59,25 @@ export default function Navbar() {
           scrolled ? 'bg-white/92 shadow-card backdrop-blur-md' : 'bg-transparent'
         }`}
       >
-        <nav className="container-x flex h-[72px] items-center justify-between gap-4">
-          <Link to="/" className="flex shrink-0 items-center gap-3 whitespace-nowrap">
+        <nav className="container-x flex h-[72px] items-center justify-between gap-2 sm:gap-4">
+          <Link to="/" className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3 xl:flex-none">
             {settings?.logo && !logoBroken ? (
               <img
                 src={mediaUrl(settings.logo)}
                 alt=""
                 onError={() => setLogoBroken(true)}
-                className="h-11 w-auto"
+                className="h-9 w-auto shrink-0 sm:h-11"
               />
             ) : (
-              <span className="grid h-11 w-11 place-items-center rounded-2xl bg-leaf text-lg font-bold text-white">
+              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-2xl bg-leaf text-base font-bold text-white sm:h-11 sm:w-11 sm:text-lg">
                 D
               </span>
             )}
-            <span className="leading-tight">
-              <span className="block font-display text-xl font-semibold leading-tight text-ink">
-               {settings?.brandName || 'Denoah Lanka Holidays'}
+            <span className="min-w-0 leading-tight">
+              <span className="block truncate font-display text-base font-semibold leading-tight text-ink sm:text-xl">
+                {settings?.brandName || 'Denoah Lanka Holidays'}
               </span>
-               <span className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-ink/50">
+              <span className="block truncate text-[9px] font-semibold uppercase tracking-[0.18em] text-ink/50 sm:text-[10px] sm:tracking-[0.22em]">
                 Travel with Shan
               </span>
             </span>
@@ -115,7 +115,7 @@ export default function Navbar() {
             <button
               onClick={() => setSearchOpen(true)}
               aria-label="Search the site"
-              className="grid h-10 w-10 place-items-center rounded-full text-ink/60 transition hover:bg-ink/6 hover:text-ink"
+              className="hidden h-10 w-10 place-items-center rounded-full text-ink/60 transition hover:bg-ink/6 hover:text-ink sm:grid"
             >
               <Search size={18} />
             </button>

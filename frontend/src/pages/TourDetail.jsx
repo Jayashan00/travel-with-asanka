@@ -6,6 +6,9 @@ import Reveal from '../components/Reveal'
 import Stars from '../components/Stars'
 import { EmptyState } from '../components/Loader'
 import { api, mediaUrl, priceText } from '../lib/api'
+import { useSite } from '../lib/SiteContext'
+import { messageForTour, waLink } from '../lib/whatsapp'
+import WhatsAppIcon from '../components/WhatsAppIcon'
 import { useWishlist } from '../lib/WishlistContext'
 
 const FALLBACK_IMAGE = '/images/hero/hero-sigiriya.jpg'
@@ -16,6 +19,7 @@ export default function TourDetail() {
   const [loading, setLoading] = useState(true)
   const [failed, setFailed] = useState(false)
   const { has, toggle } = useWishlist()
+  const { settings } = useSite()
 
   useEffect(() => {
     setLoading(true)
@@ -195,6 +199,15 @@ export default function TourDetail() {
                 )}
               </ul>
 
+              <a
+                href={waLink(settings?.whatsapp, messageForTour(tour.title))}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#1EBE5B]"
+              >
+                <WhatsAppIcon size={17} /> Ask about this tour on WhatsApp
+              </a>
+
               <button
                 type="button"
                 onClick={() =>
@@ -208,7 +221,7 @@ export default function TourDetail() {
                   })
                 }
                 aria-pressed={saved}
-                className={`mt-6 w-full ${saved ? 'btn-primary' : 'btn-ghost'}`}
+                className={`mt-3 w-full ${saved ? 'btn-primary' : 'btn-ghost'}`}
               >
                 <Heart size={16} fill={saved ? 'currentColor' : 'none'} />
                 {saved ? 'Saved to your list' : 'Save this tour'}
